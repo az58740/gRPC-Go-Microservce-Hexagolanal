@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 
+	"github.com/az58740/gRPC-Go-Microservice-Hexagolanal/order/config"
 	"github.com/az58740/gRPC-Go-Microservice-Hexagolanal/order/internal/ports"
 	pb "github.com/az58740/grpc-microservices-proto/golang/order"
 	"google.golang.org/grpc"
@@ -29,7 +30,7 @@ func (a Adapter) Run() {
 	var opt []grpc.ServerOption
 	grpcServer := grpc.NewServer(opt...)
 	pb.RegisterOrderServer(grpcServer, a.UnimplementedOrderServer)
-	if "config" == "development" {
+	if config.GetEnv() == "development" {
 		reflection.Register(grpcServer)
 	}
 	if err := grpcServer.Serve(listen); err != nil {
