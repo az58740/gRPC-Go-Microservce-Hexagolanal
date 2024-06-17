@@ -22,6 +22,9 @@ func GetApplicationPort() int {
 	}
 	return port
 }
+func GetPaymentServiceUrl() string {
+	return getEnvironmentValue("PAYMENT_SERVICE_URL")
+}
 
 func getEnvironmentValue(key string) string {
 	err := godotenv.Load()
